@@ -1,0 +1,54 @@
+import datetime
+menu = """
+[1] DEPOSITAR
+[2] SACAR
+[3] EXTRATO
+[0] SAIR
+"""
+data = datetime.date.today()
+print(data)
+valor = 0
+saldo = 0
+LIMITE = 500
+extrato = []
+numero_saques = 0
+LIMITE_SAQUES = 3
+
+while True:
+    opcao = int(input(menu))
+    if opcao == 1:
+        valor = float(input("Valor irá depositar: "))
+        if valor > 0:
+            saldo += valor
+            extrato.append(f"Crédito de {valor}")
+            print(f"Depósito no valor de R$ {valor} reais realizado com sucesso.")
+
+    elif opcao == 2:
+        valor = float(input("Valor irá sacar: "))
+        dataAtual = datetime.date.today()
+        if(dataAtual != data):
+            numero_saques = 0
+        if numero_saques < LIMITE_SAQUES:
+            if valor <= saldo and valor <= LIMITE:
+               saldo -= valor
+               extrato.append(f"Débito de {valor}")
+               numero_saques += 1
+               print(f"Saque no valor de R$ {valor} reais realizado com sucesso.")
+            else:
+                    print(f"O valor de saque R$ {valor} reais excede o limite de R$ {LIMITE} reais.")                        
+        else:
+            print("Limite de saques diários excedido.")
+    elif opcao == 3:
+       print("##### EXTRATO #####")
+       for op in extrato:
+           print(op)
+       print("-------------")
+       print(f"Saldo atual: {saldo}")
+       print("##### FIM #####")
+
+    elif opcao == 0:
+        break
+
+
+
+            
